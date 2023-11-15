@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ExamManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ExamManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ApplicationForm" EntityType="ExamManagementModel.ApplicationForm" />
+    <EntitySet Name="Department" EntityType="ExamManagementModel.Department" />
+    <EntitySet Name="Discipline" EntityType="ExamManagementModel.Discipline" />
+    <EntitySet Name="Employee" EntityType="ExamManagementModel.Employee" />
+    <EntitySet Name="Engineer" EntityType="ExamManagementModel.Engineer" />
+    <EntitySet Name="Exam" EntityType="ExamManagementModel.Exam" />
+    <EntitySet Name="Faculcy" EntityType="ExamManagementModel.Faculcy" />
+    <EntitySet Name="Specialization" EntityType="ExamManagementModel.Specialization" />
+    <EntitySet Name="Student" EntityType="ExamManagementModel.Student" />
+    <EntitySet Name="sysdiagrams" EntityType="ExamManagementModel.sysdiagrams" />
+    <EntitySet Name="Teacher" EntityType="ExamManagementModel.Teacher" />
+    <EntitySet Name="ZavDepartment" EntityType="ExamManagementModel.ZavDepartment" />
+    <AssociationSet Name="FK_ApplicationForm_Discipline" Association="ExamManagementModel.FK_ApplicationForm_Discipline">
+      <End Role="Discipline" EntitySet="Discipline" />
+      <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApplicationForm_Specialization1" Association="ExamManagementModel.FK_ApplicationForm_Specialization1">
+      <End Role="Specialization" EntitySet="Specialization" />
+      <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Department_Faculcy" Association="ExamManagementModel.FK_Department_Faculcy">
+      <End Role="Faculcy" EntitySet="Faculcy" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discipline_Department1" Association="ExamManagementModel.FK_Discipline_Department1">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Discipline" EntitySet="Discipline" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Department" Association="ExamManagementModel.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Specialization_Department" Association="ExamManagementModel.FK_Specialization_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Specialization" EntitySet="Specialization" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exam_Discipline" Association="ExamManagementModel.FK_Exam_Discipline">
+      <End Role="Discipline" EntitySet="Discipline" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Employee" Association="ExamManagementModel.FK_Employee_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee1" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Engineer_Employee" Association="ExamManagementModel.FK_Engineer_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Engineer" EntitySet="Engineer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exam_Employee1" Association="ExamManagementModel.FK_Exam_Employee1">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_Employee" Association="ExamManagementModel.FK_Teacher_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZavDepartment_Employee" Association="ExamManagementModel.FK_ZavDepartment_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="ZavDepartment" EntitySet="ZavDepartment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exam_Student" Association="ExamManagementModel.FK_Exam_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Specialization" Association="ExamManagementModel.FK_Student_Specialization">
+      <End Role="Specialization" EntitySet="Specialization" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ApplicationForm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="DisciplineCode" Type="Int32" Nullable="false" />
+    <Property Name="SpecializationNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Discipline" Relationship="ExamManagementModel.FK_ApplicationForm_Discipline" FromRole="ApplicationForm" ToRole="Discipline" />
+    <NavigationProperty Name="Specialization" Relationship="ExamManagementModel.FK_ApplicationForm_Specialization1" FromRole="ApplicationForm" ToRole="Specialization" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Shifr" />
+    </Key>
+    <Property Name="Shifr" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FaculcyAbbr" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Faculcy" Relationship="ExamManagementModel.FK_Department_Faculcy" FromRole="Department" ToRole="Faculcy" />
+    <NavigationProperty Name="Discipline" Relationship="ExamManagementModel.FK_Discipline_Department1" FromRole="Department" ToRole="Discipline" />
+    <NavigationProperty Name="Employee" Relationship="ExamManagementModel.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+    <NavigationProperty Name="Specialization" Relationship="ExamManagementModel.FK_Specialization_Department" FromRole="Department" ToRole="Specialization" />
+  </EntityType>
+  <EntityType Name="Discipline">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Implementer" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ApplicationForm" Relationship="ExamManagementModel.FK_ApplicationForm_Discipline" FromRole="Discipline" ToRole="ApplicationForm" />
+    <NavigationProperty Name="Department" Relationship="ExamManagementModel.FK_Discipline_Department1" FromRole="Discipline" ToRole="Department" />
+    <NavigationProperty Name="Exam" Relationship="ExamManagementModel.FK_Exam_Discipline" FromRole="Discipline" ToRole="Exam" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentShifr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Post" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Chief" Type="Int32" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Department" Relationship="ExamManagementModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+    <NavigationProperty Name="Employee1" Relationship="ExamManagementModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+    <NavigationProperty Name="Employee2" Relationship="ExamManagementModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
+    <NavigationProperty Name="Engineer" Relationship="ExamManagementModel.FK_Engineer_Employee" FromRole="Employee" ToRole="Engineer" />
+    <NavigationProperty Name="Exam" Relationship="ExamManagementModel.FK_Exam_Employee1" FromRole="Employee" ToRole="Exam" />
+    <NavigationProperty Name="Teacher" Relationship="ExamManagementModel.FK_Teacher_Employee" FromRole="Employee" ToRole="Teacher" />
+    <NavigationProperty Name="ZavDepartment" Relationship="ExamManagementModel.FK_ZavDepartment_Employee" FromRole="Employee" ToRole="ZavDepartment" />
+  </EntityType>
+  <EntityType Name="Engineer">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee" Relationship="ExamManagementModel.FK_Engineer_Employee" FromRole="Engineer" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DisciplineCode" Type="Int32" Nullable="false" />
+    <Property Name="RegNumber" Type="Int32" Nullable="false" />
+    <Property Name="TabNumber" Type="Int32" />
+    <Property Name="Auditorium" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mark" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Discipline" Relationship="ExamManagementModel.FK_Exam_Discipline" FromRole="Exam" ToRole="Discipline" />
+    <NavigationProperty Name="Employee" Relationship="ExamManagementModel.FK_Exam_Employee1" FromRole="Exam" ToRole="Employee" />
+    <NavigationProperty Name="Student" Relationship="ExamManagementModel.FK_Exam_Student" FromRole="Exam" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Faculcy">
+    <Key>
+      <PropertyRef Name="Abbr" />
+    </Key>
+    <Property Name="Abbr" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Department" Relationship="ExamManagementModel.FK_Department_Faculcy" FromRole="Faculcy" ToRole="Department" />
+  </EntityType>
+  <EntityType Name="Specialization">
+    <Key>
+      <PropertyRef Name="Number" />
+    </Key>
+    <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Direction" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DepartmentShifr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ApplicationForm" Relationship="ExamManagementModel.FK_ApplicationForm_Specialization1" FromRole="Specialization" ToRole="ApplicationForm" />
+    <NavigationProperty Name="Department" Relationship="ExamManagementModel.FK_Specialization_Department" FromRole="Specialization" ToRole="Department" />
+    <NavigationProperty Name="Student" Relationship="ExamManagementModel.FK_Student_Specialization" FromRole="Specialization" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="RegNumber" />
+    </Key>
+    <Property Name="RegNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SpecializationNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Exam" Relationship="ExamManagementModel.FK_Exam_Student" FromRole="Student" ToRole="Exam" />
+    <NavigationProperty Name="Specialization" Relationship="ExamManagementModel.FK_Student_Specialization" FromRole="Student" ToRole="Specialization" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="Int32" Nullable="false" />
+    <Property Name="Rank" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Degree" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee" Relationship="ExamManagementModel.FK_Teacher_Employee" FromRole="Teacher" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="ZavDepartment">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="Int32" Nullable="false" />
+    <Property Name="WorkExperience" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="ExamManagementModel.FK_ZavDepartment_Employee" FromRole="ZavDepartment" ToRole="Employee" />
+  </EntityType>
+  <Association Name="FK_ApplicationForm_Discipline">
+    <End Type="ExamManagementModel.Discipline" Role="Discipline" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.ApplicationForm" Role="ApplicationForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discipline">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="ApplicationForm">
+        <PropertyRef Name="DisciplineCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApplicationForm_Specialization1">
+    <End Type="ExamManagementModel.Specialization" Role="Specialization" Multiplicity="1" />
+    <End Type="ExamManagementModel.ApplicationForm" Role="ApplicationForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="ApplicationForm">
+        <PropertyRef Name="SpecializationNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Department_Faculcy">
+    <End Type="ExamManagementModel.Faculcy" Role="Faculcy" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.Department" Role="Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculcy">
+        <PropertyRef Name="Abbr" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="FaculcyAbbr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discipline_Department1">
+    <End Type="ExamManagementModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="ExamManagementModel.Discipline" Role="Discipline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Shifr" />
+      </Principal>
+      <Dependent Role="Discipline">
+        <PropertyRef Name="Implementer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Department">
+    <End Type="ExamManagementModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="ExamManagementModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Shifr" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepartmentShifr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Specialization_Department">
+    <End Type="ExamManagementModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="ExamManagementModel.Specialization" Role="Specialization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Shifr" />
+      </Principal>
+      <Dependent Role="Specialization">
+        <PropertyRef Name="DepartmentShifr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exam_Discipline">
+    <End Type="ExamManagementModel.Discipline" Role="Discipline" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.Exam" Role="Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discipline">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="DisciplineCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Employee">
+    <End Type="ExamManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="ExamManagementModel.Employee" Role="Employee1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Employee1">
+        <PropertyRef Name="Chief" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Engineer_Employee">
+    <End Type="ExamManagementModel.Employee" Role="Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.Engineer" Role="Engineer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Engineer">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exam_Employee1">
+    <End Type="ExamManagementModel.Employee" Role="Employee" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.Exam" Role="Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_Employee">
+    <End Type="ExamManagementModel.Employee" Role="Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZavDepartment_Employee">
+    <End Type="ExamManagementModel.Employee" Role="Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ExamManagementModel.ZavDepartment" Role="ZavDepartment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="ZavDepartment">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exam_Student">
+    <End Type="ExamManagementModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="ExamManagementModel.Exam" Role="Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="RegNumber" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="RegNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Specialization">
+    <End Type="ExamManagementModel.Specialization" Role="Specialization" Multiplicity="1" />
+    <End Type="ExamManagementModel.Student" Role="Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="SpecializationNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

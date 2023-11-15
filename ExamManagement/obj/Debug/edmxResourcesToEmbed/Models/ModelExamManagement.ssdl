@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ExamManagementModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ApplicationForm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DisciplineCode" Type="int" Nullable="false" />
+    <Property Name="SpecializationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Shifr" />
+    </Key>
+    <Property Name="Shifr" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FaculcyAbbr" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Discipline">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Implementer" Type="nvarchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentShifr" Type="nvarchar" MaxLength="2" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Post" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Salary" Type="money" Nullable="false" />
+    <Property Name="Chief" Type="int" />
+    <Property Name="Image" Type="image" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Engineer">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="DisciplineCode" Type="int" Nullable="false" />
+    <Property Name="RegNumber" Type="int" Nullable="false" />
+    <Property Name="TabNumber" Type="int" />
+    <Property Name="Auditorium" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Mark" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Faculcy">
+    <Key>
+      <PropertyRef Name="Abbr" />
+    </Key>
+    <Property Name="Abbr" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Specialization">
+    <Key>
+      <PropertyRef Name="Number" />
+    </Key>
+    <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Direction" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DepartmentShifr" Type="nvarchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="RegNumber" />
+    </Key>
+    <Property Name="RegNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpecializationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="int" Nullable="false" />
+    <Property Name="Rank" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Degree" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ZavDepartment">
+    <Key>
+      <PropertyRef Name="TabNumber" />
+    </Key>
+    <Property Name="TabNumber" Type="int" Nullable="false" />
+    <Property Name="WorkExperience" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ApplicationForm_Discipline">
+    <End Role="Discipline" Type="Self.Discipline" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discipline">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="ApplicationForm">
+        <PropertyRef Name="DisciplineCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ApplicationForm_Specialization1">
+    <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
+    <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="ApplicationForm">
+        <PropertyRef Name="SpecializationNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Department_Faculcy">
+    <End Role="Faculcy" Type="Self.Faculcy" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculcy">
+        <PropertyRef Name="Abbr" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="FaculcyAbbr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discipline_Department1">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Shifr" />
+      </Principal>
+      <Dependent Role="Discipline">
+        <PropertyRef Name="Implementer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Shifr" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepartmentShifr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Employee1">
+        <PropertyRef Name="Chief" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Engineer_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Engineer" Type="Self.Engineer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Engineer">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exam_Discipline">
+    <End Role="Discipline" Type="Self.Discipline" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discipline">
+        <PropertyRef Name="Code" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="DisciplineCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exam_Employee1">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exam_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="RegNumber" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="RegNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Specialization_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Shifr" />
+      </Principal>
+      <Dependent Role="Specialization">
+        <PropertyRef Name="DepartmentShifr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Specialization">
+    <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="SpecializationNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZavDepartment_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ZavDepartment" Type="Self.ZavDepartment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="TabNumber" />
+      </Principal>
+      <Dependent Role="ZavDepartment">
+        <PropertyRef Name="TabNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ExamManagementModelContainer">
+    <EntitySet Name="ApplicationForm" EntityType="Self.ApplicationForm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Engineer" EntityType="Self.Engineer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Faculcy" EntityType="Self.Faculcy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZavDepartment" EntityType="Self.ZavDepartment" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ApplicationForm_Discipline" Association="Self.FK_ApplicationForm_Discipline">
+      <End Role="Discipline" EntitySet="Discipline" />
+      <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ApplicationForm_Specialization1" Association="Self.FK_ApplicationForm_Specialization1">
+      <End Role="Specialization" EntitySet="Specialization" />
+      <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Department_Faculcy" Association="Self.FK_Department_Faculcy">
+      <End Role="Faculcy" EntitySet="Faculcy" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discipline_Department1" Association="Self.FK_Discipline_Department1">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Discipline" EntitySet="Discipline" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee1" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Engineer_Employee" Association="Self.FK_Engineer_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Engineer" EntitySet="Engineer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exam_Discipline" Association="Self.FK_Exam_Discipline">
+      <End Role="Discipline" EntitySet="Discipline" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exam_Employee1" Association="Self.FK_Exam_Employee1">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exam_Student" Association="Self.FK_Exam_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Specialization_Department" Association="Self.FK_Specialization_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Specialization" EntitySet="Specialization" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Specialization" Association="Self.FK_Student_Specialization">
+      <End Role="Specialization" EntitySet="Specialization" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_Employee" Association="Self.FK_Teacher_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZavDepartment_Employee" Association="Self.FK_ZavDepartment_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="ZavDepartment" EntitySet="ZavDepartment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
